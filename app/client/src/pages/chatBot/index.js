@@ -1,12 +1,15 @@
-  import React from 'react'
+  import React,{useState} from 'react'
   import axios from 'axios'
   
   const FormSurvey = () => {
+    const [responseBot , setResponseBot] = useState([])
+
       const RequestChat = (e) =>{
-          console.log("People:",e.target[0].value)
-          console.log("Budget",e.target[1].value)
-          console.log("Mainland",e.target[2].value)
           axios.post('http://localhost:3001/chatbot',{people:e.target[0].value ,budget:e.target[1].value,mainland:e.target[2].value })
+          .then(res => {
+              const responseServer = res.data.message.message.content
+              setResponseBot(responseServer.split('\n'))
+          })
       }
     
     return (
@@ -26,6 +29,14 @@
               <option value="Africa">Africa</option>
           </select>
           <button type='submit'>Searching</button>
+          {
+            responseBot.length > 0  ? <div>{responseBot?.map(line => <div>{line}</div>)}</div>:null
+          }
+          {
+           
+
+          
+          }
       </form>
     ) 
 }
