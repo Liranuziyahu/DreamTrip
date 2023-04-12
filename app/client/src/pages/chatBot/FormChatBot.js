@@ -17,15 +17,15 @@ const FormChatBot = ({ props }) => {
   const [durringTrip, setDurringTrip] = useState("2 Days");
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
-    contery: "",
-    travers: "Family",
+    country: "",
+    travelers: "Family",
     budget: "",
     durringTrip: "2 Days",
   });
 
   const handleChange = (event) => {
     setTypeTravelers(event.target.value);
-    setFormValues({ ...formValues, travers: event.target.value });
+    setFormValues({ ...formValues, travelers: event.target.value });
   };
 
   const handleChangeDurringTrip = (event) => {
@@ -35,7 +35,7 @@ const FormChatBot = ({ props }) => {
 
   const BoxDurringTrip = (day) => {
     let days = [];
-    for (var day = 1; day <= 60 ; day++) {
+    for (let day = 1; day <= 60 ; day++) {
       days.push(
           <MenuItem value={`${day} Days`}>
             <em>{`${day} Days`}</em>
@@ -50,9 +50,9 @@ const FormChatBot = ({ props }) => {
     console.log(e);
     axios
       .post("http://localhost:3001/chatbot", {
-        people: e.travers,
+        people: e.travelers,
         budget: e.budget,
-        mainland: e.contery,
+        mainland: e.country,
         durring:e.durringTrip,
       })
       .then((res) => {
@@ -81,7 +81,7 @@ const FormChatBot = ({ props }) => {
           <>
             <TextField
               onChange={(e) =>
-                setFormValues({ ...formValues, contery: e.target.value })
+                setFormValues({ ...formValues, country: e.target.value })
               }
               label="Your Next Trip"
               variant="standard"
@@ -138,7 +138,6 @@ const FormChatBot = ({ props }) => {
                 >
                {
                BoxDurringTrip()
-                
                }
                 </Select>
               </FormControl>
