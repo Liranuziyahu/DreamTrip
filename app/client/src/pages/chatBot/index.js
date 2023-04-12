@@ -1,43 +1,41 @@
-  import React,{useState} from 'react'
-  import axios from 'axios'
-  
-  const FormSurvey = () => {
-    const [responseBot , setResponseBot] = useState([])
+import React , {useState} from 'react'
+import FormChatBot from './FormChatBot'
+import StepperForm from '../Stepper/StepperForm'
+import { makeStyles } from '@material-ui/styles';
+import ResponeChat from './ResponeChat';
 
-      const RequestChat = (e) =>{
-          axios.post('http://localhost:3001/chatbot',{people:e.target[0].value ,budget:e.target[1].value,mainland:e.target[2].value })
-          .then(res => {
-              const responseServer = res.data.message.message.content
-              setResponseBot(responseServer.split('\n'))
-          })
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500&display=swap');
+</style>
+
+const Index = () => {
+  const [controller , setController]  = useState(0)
+  const [responseBot, setResponseBot] = useState([]);
+  const classes = useStyles();
+
+  return (
+    <div className={classes.warp}>
+      {
+        responseBot.length == 0 && controller < 2 ? <StepperForm  props = {{controller:controller }}></StepperForm>:null
       }
-    
-    return (
-      <form onSubmit={(e)=>{
-          e.preventDefault()
-          RequestChat(e)
-      }}>
-          <div>How many People</div>
-          <input type='number'></input>
-          <div>What is your Budget</div>
-          <input type='text'></input>
-          <div>Which mainland</div>
-          <select>
-              <option value="America">America</option>
-              <option value="Eroupe">Eroupe</option>
-              <option value="Asia">Asia</option>
-              <option value="Africa">Africa</option>
-          </select>
-          <button type='submit'>Searching</button>
-          {
-            responseBot.length > 0  ? <div>{responseBot?.map(line => <div>{line}</div>)}</div>:null
-          }
-          {
-           
-
-          
-          }
-      </form>
-    ) 
+        <FormChatBot props = {{setController:setController , controller:controller , setResponseBot:setResponseBot ,responseBot:responseBot}}></FormChatBot>
+        <ResponeChat props={{responseBot:responseBot}}></ResponeChat>
+    </div>
+  )
 }
-  export default FormSurvey
+
+export default Index
+
+const useStyles = makeStyles({
+  warp:{
+    display:'flex',
+    width:'100%',
+    padding:20,
+    flexDirection:'column',
+    justifyContent: 'flex-start',
+    height:'100vh',
+    fontFamily: 'Roboto Mono , monospace',
+    fontWeight: 'bold',
+    overflowY: 'scroll',
+  }
+})
