@@ -10,13 +10,13 @@ import ResponeChat from './ResponeChat';
 
 const Index = () => {
   const [controller , setController]  = useState(0)
-  const [responseBot, setResponseBot] = useState([]);
+  const [responseBot, setResponseBot] = useState('');
   const classes = useStyles();
 
   return (
     <div className={classes.warp}>
       {
-        responseBot.length == 0 && controller < 2 ? <StepperForm  props = {{controller:controller }}></StepperForm>:null
+        responseBot == '' && controller < 2 ? <StepperForm  props = {{controller:controller }}></StepperForm>:null
       }
         <FormChatBot props = {{setController:setController , controller:controller , setResponseBot:setResponseBot ,responseBot:responseBot}}></FormChatBot>
         <ResponeChat props={{responseBot:responseBot}}></ResponeChat>

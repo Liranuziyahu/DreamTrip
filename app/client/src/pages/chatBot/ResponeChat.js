@@ -1,9 +1,10 @@
 import React from 'react'
 
 const ResponeChat = ({props}) => {
+  console.log(props);
   return (
     <div>
-           {props.responseBot?.length > 0 && (
+           {props.responseBot != '' && (
           <>
              {props.responseBot?.map((line) => (
               <div>{line}</div>

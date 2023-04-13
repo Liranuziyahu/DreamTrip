@@ -36,8 +36,7 @@ const FormChatBot = ({ props }) => {
   }
 
   const handleChangeBudget = (event) => {
-    console.log(event);
-    setBudget(event.target.value)
+      setBudget(event.target.value)
     setFormValues({ ...formValues, budget: event.target.value });
   }
 
@@ -64,9 +63,7 @@ const FormChatBot = ({ props }) => {
     return boxData;
   }
 
-
   const RequestChat = (e) => {
-    console.log(e);
     axios
       .post("https://dream-trip-3908.onrender.com/gpt/", {
         travelers: e.travelers,
@@ -75,11 +72,9 @@ const FormChatBot = ({ props }) => {
         durring:e.durringTrip,
       })
       .then((res) => {
-        console.log(res.data);
-        // const responseServer = res.data.message.message.content;
-        // console.log(responseServer);
-        // props.setResponseBot(responseServer);
-        // setSubmitLoader(false);
+        const responseServer = res.data;
+        props.setResponseBot(responseServer);
+        setSubmitLoader(false);
       })
       .catch((err) => {
         setSubmitLoader(false);
@@ -107,14 +102,6 @@ const FormChatBot = ({ props }) => {
               label="Your Next Trip"
               variant="standard"
             />
-            {/* <TextField
-              onChange={(e) =>
-                setFormValues({ ...formValues, budget: e.target.value })
-              }
-              label="What is your Budget"
-              variant="standard"
-            /> */}
-
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth >
                 <InputLabel id="demo-simple-select-label">
@@ -182,10 +169,6 @@ const FormChatBot = ({ props }) => {
                 </Select>
               </FormControl>
             </Box>
-
-            
-
-
         </>
         ) : null}
 
