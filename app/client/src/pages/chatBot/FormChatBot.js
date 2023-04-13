@@ -65,7 +65,7 @@ const FormChatBot = ({ props }) => {
 
   const RequestChat = (e) => {
     axios
-      .post("https://dream-trip-3908.onrender.com/gpt/", {
+      .post("http://127.0.0.1:8000/gpt/", {
         travelers: e.travelers,
         budget: e.budget,
         mainland: e.country,

@@ -1,13 +1,18 @@
 import React from 'react'
 
 const ResponeChat = ({props}) => {
-  console.log(props);
+  console.log(props.responseBot );
   return (
     <div>
-           {props.responseBot != '' && (
+           {
+           props.responseBot != '' && (
           <>
-             {props.responseBot?.map((line) => (
-              <div>{line}</div>
+              <h3>{props.responseBot.itinerary[0].country}</h3>
+             {props.responseBot.itinerary?.map((route) => (
+                <>
+                <div>{route.city}</div>
+                <div>{route.description}</div>
+                </>
             ))}
           </>
         )}
