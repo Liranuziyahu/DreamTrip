@@ -15,11 +15,13 @@ const FormChatBot = ({ props }) => {
   const [submitLoader, setSubmitLoader] = useState(false);
   const [typeTravelers, setTypeTravelers] = useState("Family");
   const [durringTrip, setDurringTrip] = useState("2 Days");
+  const [budget, setBudget] = useState("Moderate");
+
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
-    country: "",
+    country: "Israel",
     travelers: "Family",
-    budget: "",
+    budget: "Moderate",
     durringTrip: "2 Days",
   });
 
@@ -31,6 +33,12 @@ const FormChatBot = ({ props }) => {
   const handleChangeDurringTrip = (event) => {
     setDurringTrip(event.target.value)
     setFormValues({ ...formValues, durringTrip: event.target.value });
+  }
+
+  const handleChangeBudget = (event) => {
+    console.log(event);
+    setBudget(event.target.value)
+    setFormValues({ ...formValues, budget: event.target.value });
   }
 
   const BoxDurringTrip = (day) => {
@@ -45,20 +53,33 @@ const FormChatBot = ({ props }) => {
     return days;
   }
 
+  const BoxBudget = () => {
+    let budgets = ['Premium', 'Lexury', 'Upscale' , 'Back-Packing' , "Moderate"];
+    let boxData = budgets.map(budget => {
+     return  (
+      <MenuItem value={budget}>
+      <em>{budget}</em>
+    </MenuItem>
+     )})
+    return boxData;
+  }
+
 
   const RequestChat = (e) => {
     console.log(e);
     axios
-      .post("http://localhost:3001/chatbot", {
-        people: e.travelers,
+      .post("https://dream-trip-3908.onrender.com/gpt/", {
+        travelers: e.travelers,
         budget: e.budget,
         mainland: e.country,
         durring:e.durringTrip,
       })
       .then((res) => {
-        const responseServer = res.data.message.message.content;
-        props.setResponseBot(responseServer.split("\n"));
-        setSubmitLoader(false);
+        console.log(res.data);
+        // const responseServer = res.data.message.message.content;
+        // console.log(responseServer);
+        // props.setResponseBot(responseServer);
+        // setSubmitLoader(false);
       })
       .catch((err) => {
         setSubmitLoader(false);
@@ -86,13 +107,32 @@ const FormChatBot = ({ props }) => {
               label="Your Next Trip"
               variant="standard"
             />
-            <TextField
+            {/* <TextField
               onChange={(e) =>
                 setFormValues({ ...formValues, budget: e.target.value })
               }
               label="What is your Budget"
               variant="standard"
-            />
+            /> */}
+
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth >
+                <InputLabel id="demo-simple-select-label">
+                  Budget
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={budget}
+                  label="Type Travelers"
+                  onChange={handleChangeBudget}
+                >
+               {
+               BoxBudget()
+               }
+                </Select>
+              </FormControl>
+            </Box>
           </>
         ) : props.controller == 1 ? (
         <>

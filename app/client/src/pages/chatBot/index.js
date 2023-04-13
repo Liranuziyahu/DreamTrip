@@ -36,6 +36,5 @@ const useStyles = makeStyles({
     height:'100vh',
     fontFamily: 'Roboto Mono , monospace',
     fontWeight: 'bold',
-    overflowY: 'scroll',
   }
 })
