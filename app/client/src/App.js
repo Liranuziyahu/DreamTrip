@@ -1,9 +1,9 @@
-import Index from "./pages/chatBot";
+import Router from './Route/Router';
 
 function App() {
   return (
     <>
-    <Index></Index>
+    <Router></Router>
     </>
   );
 }

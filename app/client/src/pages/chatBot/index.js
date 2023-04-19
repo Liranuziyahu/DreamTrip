@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div className={classes.warp}>
       {
-        responseBot == '' && controller < 2 ? <StepperForm  props = {{controller:controller }}></StepperForm>:null
+        responseBot == '' && controller < 2 ? <StepperForm  props = {{controller:controller,setController:setController }}></StepperForm>:null
       }
         <FormChatBot props = {{setController:setController , controller:controller , setResponseBot:setResponseBot ,responseBot:responseBot}}></FormChatBot>
         <ResponeChat props={{responseBot:responseBot}}></ResponeChat>

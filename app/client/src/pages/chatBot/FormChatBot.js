@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 import Flight from "../Loader/Flight";
 import TextField from "@mui/material/TextField";
@@ -10,12 +10,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@material-ui/styles";
+import { useNavigate } from 'react-router-dom';
+
+const Localhost = "http://localhost:3001/chatbot"
 
 const FormChatBot = ({ props }) => {
   const [submitLoader, setSubmitLoader] = useState(false);
   const [typeTravelers, setTypeTravelers] = useState("Family");
   const [durringTrip, setDurringTrip] = useState("2 Days");
   const [budget, setBudget] = useState("Moderate");
+  let navigate = useNavigate();
 
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
@@ -42,7 +46,7 @@ const FormChatBot = ({ props }) => {
 
   const BoxDurringTrip = (day) => {
     let days = [];
-    for (let day = 1; day <= 60 ; day++) {
+    for (let day = 1; day <= 30 ; day++) {
       days.push(
           <MenuItem value={`${day} Days`}>
             <em>{`${day} Days`}</em>
@@ -65,15 +69,17 @@ const FormChatBot = ({ props }) => {
 
   const RequestChat = (e) => {
     axios
-      .post("http://127.0.0.1:8000/gpt/", {
+      .post(process.env.REACT_APP_API_KEY, {
         travelers: e.travelers,
         budget: e.budget,
         mainland: e.country,
         durring:e.durringTrip,
       })
       .then((res) => {
-        const responseServer = res.data;
+        console.log(res.data);
+        const responseServer = JSON.parse(res.data)
         props.setResponseBot(responseServer);
+        navigate('/planningtrip',{state:{ props: responseServer }});
         setSubmitLoader(false);
       })
       .catch((err) => {
@@ -204,13 +210,14 @@ const FormChatBot = ({ props }) => {
         )}
 
         {props.controller == 1 && (
+
           <Button
             type="submit"
             variant="contained"
             endIcon={<FlightTakeoffIcon />}
           >
             Searching
-          </Button>
+          </Button>         
         )}
 
       </div>
