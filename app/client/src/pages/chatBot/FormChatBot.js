@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState , useEffect} from "react";
 import axios from "axios";
 import Flight from "../Loader/Flight";
 import TextField from "@mui/material/TextField";
@@ -19,15 +19,21 @@ const FormChatBot = ({ props }) => {
   const [typeTravelers, setTypeTravelers] = useState("Family");
   const [durringTrip, setDurringTrip] = useState("2 Days");
   const [budget, setBudget] = useState("Moderate");
-  let navigate = useNavigate();
-
+  const [countries, setCountries] = useState([])
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [formValues, setFormValues] = useState({
     country: "Israel",
     travelers: "Family",
     budget: "Moderate",
     durringTrip: "2 Days",
   });
+
+useEffect(() => {
+  axios.get('https://restcountries.com/v3.1/all')
+  .then(res => res.data.map(country => setCountries(country.name.common)))
+},[])
 
   const handleChange = (event) => {
     setTypeTravelers(event.target.value);
@@ -61,8 +67,8 @@ const FormChatBot = ({ props }) => {
     let boxData = budgets.map(budget => {
      return  (
       <MenuItem value={budget}>
-      <em>{budget}</em>
-    </MenuItem>
+        <em>{budget}</em>
+      </MenuItem>
      )})
     return boxData;
   }
@@ -77,6 +83,7 @@ const FormChatBot = ({ props }) => {
       })
       .then((res) => {
         console.log(res.data);
+        console.log(typeof res.data);
         const responseServer = JSON.parse(res.data)
         props.setResponseBot(responseServer);
         navigate('/planningtrip',{state:{ props: responseServer }});
@@ -108,6 +115,7 @@ const FormChatBot = ({ props }) => {
               label="Your Next Trip"
               variant="standard"
             />
+            
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth >
                 <InputLabel id="demo-simple-select-label">
