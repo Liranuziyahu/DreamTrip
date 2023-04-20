@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { useLocation } from 'react-router-dom';
+// import Map from '../googleMaps/Map';
 
 const ResponeChat = () => {
   const location = useLocation();
@@ -18,8 +19,9 @@ const ResponeChat = () => {
     },[])
 
     const CreateDurringDays = (daysBefore , durringDays) =>{
-      return `${daysBefore} - ${durringDays} Days `
+      return durringDays-daysBefore != 1 && durringDays != 1 ? `${daysBefore+1} - ${durringDays} Days `: `${durringDays} Day`
     }
+
   return (
     <div>
            {
@@ -48,8 +50,9 @@ const ResponeChat = () => {
                     <div>{city}</div>
                    </>
                  }) :null
-
                }
+                                {/* <Map></Map> */}
+
                 </div>
             ))} 
           </>
