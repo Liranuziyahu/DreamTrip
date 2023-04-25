@@ -18,10 +18,22 @@ const ResponeChat = () => {
       }
     },[])
 
-    const CreateDurringDays = (daysBefore , durringDays) =>{
-      return daysBefore == 0 && durringDays < 2 ? `${durringDays} Day` : daysBefore == 0 && durringDays >= 2 ? `1 - ${durringDays} Days`: `${daysBefore+2} - ${durringDays+1} Days `
+    const CreateDurringDays = (index , durringDays , cities) =>{
+      let durringdays;
 
-
+      if(index == 0 && durringDays == 1)
+        durringdays = '1 Day';
+      else if(index == 0 && durringDays >= 2)
+        durringdays = `1-${durringDays} Days`;
+      else{
+        let sumDaysBefore = 0;
+        for(let i = 0; i < index;i++){
+          sumDaysBefore = sumDaysBefore + cities[i].travelDay
+        }
+        durringdays = `${sumDaysBefore+1} - ${sumDaysBefore+durringDays} Days`
+      }
+      return durringdays
+       
     }
 
     const CreateAtrrection = (attraction) => {
@@ -46,7 +58,7 @@ const ResponeChat = () => {
                 <div>Durring Day at City :
                 {
                   index == 0 ? CreateDurringDays(0 , route.travelDay) : 
-                  CreateDurringDays(data?.cities[index-1].travelDay , route.travelDay)
+                  CreateDurringDays(index, route.travelDay , data?.cities)
                 }
                 </div>
                {
@@ -59,8 +71,6 @@ const ResponeChat = () => {
                   CreateAtrrection(city)
                  }) :null
                }
-                                {/* <Map></Map> */}
-
                 </div>
             ))} 
           </>
