@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from 'react-router-dom';
-
+import Map from '../Maps/Map'
 const Localhost = "http://localhost:3001/chatbot"
 
 const FormChatBot = ({ props }) => {
@@ -31,8 +31,11 @@ const FormChatBot = ({ props }) => {
   });
 
 useEffect(() => {
-  axios.get('https://restcountries.com/v3.1/all')
-  .then(res => res.data.map(country => setCountries(country.name.common)))
+ async function Test(){
+    await axios.get('https://restcountries.com/v3.1/all')
+    .then(res => res.data.map(country => setCountries(country.name.common)))
+  }
+  Test();
 },[])
 
   const handleChange = (event) => {
@@ -84,7 +87,7 @@ useEffect(() => {
       .then((res) => {
         console.log(res.data);
         console.log(typeof res.data);
-        const responseServer = JSON.parse(res.data)
+        const responseServer = res.data
         props.setResponseBot(responseServer);
         navigate('/planningtrip',{state:{ props: responseServer }});
         setSubmitLoader(false);
@@ -102,6 +105,7 @@ useEffect(() => {
         onSubmit={(e) => {
           props.setController(2);
           e.preventDefault();
+          console.log(formValues);
           RequestChat(formValues);
           setSubmitLoader(true);
         }}
@@ -112,6 +116,7 @@ useEffect(() => {
               onChange={(e) =>
                 setFormValues({ ...formValues, country: e.target.value })
               }
+              value={formValues.country}
               label="Your Next Trip"
               variant="standard"
             />
