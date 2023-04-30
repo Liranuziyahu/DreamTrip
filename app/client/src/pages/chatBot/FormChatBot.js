@@ -78,7 +78,7 @@ useEffect(() => {
 
   const RequestChat = (e) => {
     axios
-      .post(process.env.REACT_APP_API_KEY, {
+      .post(`${process.env.REACT_APP_API_KEY}`, {
         travelers: e.travelers,
         budget: e.budget,
         mainland: e.country,
@@ -91,6 +91,9 @@ useEffect(() => {
         props.setResponseBot(responseServer);
         navigate('/planningtrip',{state:{ props: responseServer }});
         setSubmitLoader(false);
+        axios.post('https://dream-trip-travel.herokuapp.com/gpt/attractions/',responseServer)
+        .then(data => console.log(data))
+        .catch(err => console.log('Line96',err))
       })
       .catch((err) => {
         setSubmitLoader(false);
