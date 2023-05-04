@@ -10,6 +10,7 @@ const ResponeChat = () => {
       if(location.state != null)
       { 
         console.log('Props exist:',location.state.props);
+        console.log('type',typeof location.state.props);
         setData(location.state.props)
       }
       else{

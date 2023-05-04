@@ -85,15 +85,13 @@ useEffect(() => {
         durring:e.durringTrip,
       })
       .then((res) => {
-        console.log(res.data);
-        console.log(typeof res.data);
-        const responseServer = res.data
+        const responseServer = JSON.parse(res.data)
         props.setResponseBot(responseServer);
         navigate('/planningtrip',{state:{ props: responseServer }});
         setSubmitLoader(false);
-        axios.post('https://dream-trip-travel.herokuapp.com/gpt/attractions/',responseServer)
-        .then(data => console.log(data))
-        .catch(err => console.log('Line96',err))
+        // axios.post('https://dream-trip-travel.herokuapp.com/gpt/attractions/',res.data)
+        // .then(data => console.log(data.data))
+        // .catch(err => console.log('Line96',err))
       })
       .catch((err) => {
         setSubmitLoader(false);

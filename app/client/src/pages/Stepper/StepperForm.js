@@ -102,7 +102,7 @@ const StepperForm = ({props}) => {
         <Stack sx={{ width: '100%' }} >
           <Stepper alternativeLabel activeStep={props.controller} connector={<ColorlibConnector />}>
               {steps.map((label,index) => (
-              <Step key={label} onClick={()=>props.setController(index)}>
+              <Step key={label} onClick={()=> {if(index < 2) return props.setController(index)}}>
                   <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
               </Step>
               ))}
