@@ -3,6 +3,8 @@ import FormChatBot from './FormChatBot'
 import StepperForm from '../Stepper/StepperForm'
 import { makeStyles } from '@material-ui/styles';
 import ResponeChat from './ResponeChat';
+import Map from '../Maps/Map'
+import Image from '../Unsplash/Image'
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500&display=swap');
@@ -17,7 +19,7 @@ const Index = () => {
     <div className={classes.warp}>
       {
         responseBot == '' && controller < 2 ? <StepperForm  props = {{controller:controller,setController:setController }}></StepperForm>:null
-      }
+      } 
         <FormChatBot props = {{setController:setController , controller:controller , setResponseBot:setResponseBot ,responseBot:responseBot}}></FormChatBot>
         <ResponeChat props={{responseBot:responseBot}}></ResponeChat>
     </div>

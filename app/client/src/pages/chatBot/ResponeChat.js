@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { useLocation } from 'react-router-dom';
+import Card from '../Card/Card';
 // import Map from '../googleMaps/Map';
 
 const ResponeChat = () => {
@@ -51,29 +52,11 @@ const ResponeChat = () => {
            {
            location?.state != null && (
           <>
-              <h1>{data?.country} trip plan</h1>
-              {data?.cities?.map((route ,index) => (
-                <div>
-                <h3>{route.city}</h3>
-                <div>{route.description}</div>
-                <div>Durring Day at City :
-                {
-                  index == 0 ? CreateDurringDays(0 , route.travelDay) : 
-                  CreateDurringDays(index, route.travelDay , data?.cities)
-                }
-                </div>
-               {
-                 route.attractions? 
-                 route.attractions?.map((city) =>{
-                 return CreateAtrrection(city)
-                })
-                 : route.attraction ?
-                route.attraction?.map((city) =>{
-                  CreateAtrrection(city)
-                 }) :null
-               }
-                </div>
-            ))} 
+          {
+            data?.cities.map(city =>{
+             return <Card props={city}></Card>
+            })
+          }
           </>
         )}
     </div>

@@ -12,7 +12,8 @@ import Select from "@mui/material/Select";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from 'react-router-dom';
 import Map from '../Maps/Map'
-const Localhost = "http://localhost:3001/chatbot"
+import LoginButton from "../Auto0/Auto0";
+import Card from "../Card/Card";
 
 const FormChatBot = ({ props }) => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -78,7 +79,7 @@ useEffect(() => {
 
   const RequestChat = (e) => {
     axios
-      .post(`${process.env.REACT_APP_API_KEY}`, {
+      .post(process.env.REACT_APP_OPENAI_API, {
         travelers: e.travelers,
         budget: e.budget,
         mainland: e.country,
