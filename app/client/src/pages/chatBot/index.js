@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import ResponeChat from './ResponeChat';
 import Map from '../Maps/Map'
 import Image from '../Unsplash/Image'
+import LoginButton from '../Auto0/Auto0';
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500&display=swap');
@@ -22,6 +23,8 @@ const Index = () => {
       } 
         <FormChatBot props = {{setController:setController , controller:controller , setResponseBot:setResponseBot ,responseBot:responseBot}}></FormChatBot>
         <ResponeChat props={{responseBot:responseBot}}></ResponeChat>
+        {/* <Map></Map> */}
+        {/* <LoginButton></LoginButton> */}
     </div>
   )
 }
