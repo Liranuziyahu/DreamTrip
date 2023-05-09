@@ -11,16 +11,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from 'react-router-dom';
-import Map from '../Maps/Map'
-import LoginButton from "../Auto0/Auto0";
-import Card from "../Card/Card";
 
 const FormChatBot = ({ props }) => {
   const [submitLoader, setSubmitLoader] = useState(false);
   const [typeTravelers, setTypeTravelers] = useState("Family");
   const [durringTrip, setDurringTrip] = useState("2 Days");
   const [budget, setBudget] = useState("Moderate");
-  const [countries, setCountries] = useState([])
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -31,13 +27,6 @@ const FormChatBot = ({ props }) => {
     durringTrip: "2 Days",
   });
 
-useEffect(() => {
- async function Test(){
-    await axios.get('https://restcountries.com/v3.1/all')
-    .then(res => res.data.map(country => setCountries(country.name.common)))
-  }
-  Test();
-},[])
 
   const handleChange = (event) => {
     setTypeTravelers(event.target.value);
@@ -68,9 +57,9 @@ useEffect(() => {
 
   const BoxBudget = () => {
     let budgets = ['Premium', 'Lexury', 'Upscale' , 'Back-Packing' , "Moderate"];
-    let boxData = budgets.map(budget => {
+    let boxData = budgets.map((budget , index) => {
      return  (
-      <MenuItem value={budget}>
+      <MenuItem key={index} value={budget}>
         <em>{budget}</em>
       </MenuItem>
      )})
@@ -90,9 +79,6 @@ useEffect(() => {
         props.setResponseBot(responseServer);
         navigate('/planningtrip',{state:{ props: responseServer }});
         setSubmitLoader(false);
-        // axios.post('https://dream-trip-travel.herokuapp.com/gpt/attractions/',res.data)
-        // .then(data => console.log(data.data))
-        // .catch(err => console.log('Line96',err))
       })
       .catch((err) => {
         setSubmitLoader(false);

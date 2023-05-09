@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
-import {ResponeChat , FormChatBot , Index} from '../Route/index'
+import {ResponeChat  , Index} from '../Route/index'
 
 const Router = () => {
     return (
