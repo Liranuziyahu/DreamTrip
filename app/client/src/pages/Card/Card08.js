@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import ScrollDown from "../Scroll/ScrollDown";
+import ScrollingDivs from "../Scroll/ScrollDown";
 
 const Container = styled.div`
   position: relative;
@@ -79,9 +80,11 @@ const PreTitle = styled.span`
 
 const WarpDetails = styled.span`
   background-color: rgba(0,0,0,0.2);
+  background:linear-gradient(45deg, black , transparent);
   padding: 42px;
   width: 45%;
   border-radius: 8px;
+  
 `
 const CreditPhoto = styled.div`
 position: absolute;
@@ -95,6 +98,7 @@ const Card08 = ({
   preTitle,
   description,
   creditPhoto,
+  scrolldown,
   preTitleColor = "white",
   title,
   titleColor = "white",
@@ -129,6 +133,10 @@ const Card08 = ({
       </Content>
     )}
     {
+            scrolldown && <ScrollingDivs></ScrollingDivs>
+
+    }
+    {
       <CreditPhoto>
         Photo by <a target="_blank"
         href={`https://unsplash.com/@${creditPhoto.name?.username}`}
@@ -143,7 +151,6 @@ const Card08 = ({
       </CreditPhoto>     
     }
     {
-            // <ScrollDown></ScrollDown>
 
     }
   </Container>

@@ -24,7 +24,7 @@ const ResponeChat = () => {
           <>
             {
               data?.cities.map((city ,index) =>{
-                return <Card key={index} props={{city:city , country:data.country}}></Card>
+                return <Card key={index} props={{city:city , country:data.country , mountCard:data?.cities.length , numberCard:index}}></Card>
               })
             }
           </>

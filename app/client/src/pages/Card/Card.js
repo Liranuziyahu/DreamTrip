@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card08 from "./Card08";
 import { createApi } from 'unsplash-js';
-import ScrollingDivs from '../Scroll/ScrollDown'
 
 const api = createApi({
   // Don't forget to set your access token here!
@@ -10,10 +9,12 @@ const api = createApi({
 });
 
 const Card = ({props}) => {
-  const {city , country} = props
+  const {city , country , mountCard , numberCard} = props
   const [data, setPhotosResponse] = useState(null);
+  const [scrolldown, setScrollDown] = useState(true);
 
   useEffect(() => {
+    if(numberCard + 1 == mountCard) setScrollDown(false)
     api.search
       .getPhotos({ query: city.city, orientation: 'landscape' })
       .then((result) => {
@@ -25,7 +26,7 @@ const Card = ({props}) => {
   }, []);
   
   return (
-      <div style={{position:'relative'}}>
+      <div style={{position:'relative'}} >
         {
           <Card08 
             bg_photo={data?.response.results[0].urls.full}
@@ -35,11 +36,9 @@ const Card = ({props}) => {
             title={city.city}
             creditPhoto={{name:data?.response.results[0].user}}
             description={city.description}
+            scrolldown={scrolldown}
           >
           </Card08>
-        }
-        {
-          <ScrollingDivs></ScrollingDivs>
         }
    
       </div>  
