@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FormChatBot = ({ props }) => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -19,6 +20,7 @@ const FormChatBot = ({ props }) => {
   const [budget, setBudget] = useState("Moderate");
   const classes = useStyles();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth0();
 
   const [formValues, setFormValues] = useState({
     country: "Israel",
@@ -73,6 +75,7 @@ const FormChatBot = ({ props }) => {
         budget: e.budget,
         mainland: e.country,
         durring:e.durringTrip,
+        email:user.email
       })
       .then((res) => {
         const responseServer = JSON.parse(res.data)
