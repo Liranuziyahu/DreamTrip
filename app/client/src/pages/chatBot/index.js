@@ -6,6 +6,7 @@ import ResponeChat from './ResponeChat';
 import LoginButton from '../Auto0/LoginButton';
 import LogoutButton from '../Auto0/LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
+import '../Unsplash/style.css'
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500&display=swap');
@@ -47,7 +48,6 @@ const useStyles = makeStyles({
     height:'100vh',
     fontFamily: 'Roboto Mono , monospace',
     fontWeight: 'bold',
-    overflowY: 'scroll !important',
   }
 })
 

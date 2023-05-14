@@ -11,6 +11,7 @@ const ResponeChat = () => {
       if(location.state != null)
       { 
         setData(location.state.props)
+        console.log(location.state.props);
       }
       else{
         console.log('not exist');
