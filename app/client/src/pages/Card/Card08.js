@@ -10,7 +10,6 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
   width: 100vw;
   background-color: ${props => props.bg_color};
   background-image: ${props =>
@@ -20,7 +19,7 @@ const Container = styled.div`
   padding: 40px;
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
 `;
 
@@ -33,6 +32,7 @@ const TagContainer = styled.div`
   min-width: 60px;
   border-radius: 3px;
   text-align: center;
+  margin-bottom:20px;
   color: ${props => props.tagColor};
 `;
 
@@ -40,10 +40,11 @@ const TagText = styled.span`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 `;
 
 const CTA = styled.span`
@@ -82,9 +83,9 @@ const WarpDetails = styled.span`
   background-color: rgba(0,0,0,0.2);
   background:linear-gradient(45deg, black , transparent);
   padding: 42px;
-  width: 45%;
+  width: 100%;
   border-radius: 8px;
-  
+  margin-bottom:10px;
 `
 const CreditPhoto = styled.div`
 position: absolute;
@@ -99,6 +100,7 @@ const Card08 = ({
   description,
   creditPhoto,
   scrolldown,
+  city,
   preTitleColor = "white",
   title,
   titleColor = "white",
@@ -125,12 +127,28 @@ const Card08 = ({
           {title && <Title color={titleColor}>{title}</Title>}
           {description && <Description color={titleColor}>{description}</Description>}
         </WarpDetails>
-        {cta && (
+        {/* {cta && (
           <CTA bg_color={ctaBg} color={ctaColor}>
             <CTAText>{cta}</CTAText>
           </CTA>
-        )}
+        )} */
+        console.log(city)
+        }
+         <WarpDetails>
+          {
+            city.attractions.map(attraction =>{
+                return (
+                 <>
+                  {attraction.name && <h4 style={{color:titleColor}}>{attraction.name}</h4>}
+                  {attraction.description && <Description color={titleColor}>{attraction.description}</Description>}
+                 </>
+                )
+
+            })
+          }
+        </WarpDetails>
       </Content>
+      
     )}
     {
             scrolldown && <ScrollingDivs></ScrollingDivs>

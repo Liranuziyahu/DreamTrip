@@ -34,6 +34,7 @@ const Card = ({props}) => {
             tag={country}
             cta="View more"
             title={city.city}
+            city={city}
             creditPhoto={{name:data?.response.results[0].user}}
             description={city.description}
             scrolldown={scrolldown}
